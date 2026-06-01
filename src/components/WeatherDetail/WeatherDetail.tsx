@@ -7,9 +7,10 @@ type WeatherDetailProps = {
 }
 
 export const WeatherDetail = ({ weather }: WeatherDetailProps) => {
+  
   const currentWeather = weather.weather[0];
   const iconUrl = currentWeather
-    ? `https://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`
+    ? `${import.meta.env.VITE_OPEN_WEATHER_URL}/img/wn/${currentWeather.icon}@2x.png`
     : null;
 
   return (

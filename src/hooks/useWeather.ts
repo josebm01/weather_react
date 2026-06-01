@@ -38,6 +38,8 @@ export const useWeather = () => {
     const [loading, setLoading] = useState(false);
     const [notFound, setNotFound] = useState(false);
 
+    const { VITE_GEO_URL, VITE_WEATHER_API_KEY, VITE_WEATHER_URL } = import.meta.env;
+
     const fetchWeather = async (search: SearchType) => {
 
         setLoading(true);
@@ -45,9 +47,12 @@ export const useWeather = () => {
         setNotFound(false);
 
         try {
-            const geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`;
+
+            // obteniendo latitud y longitud de la ciudad
+            const geoURL = `${VITE_GEO_URL}${search.city},${search.country}&appid=${VITE_WEATHER_API_KEY}`;
             const { data } = await axios.get(geoURL);
 
+            // Comprobando si se encuentra la información
             if ( !data[0] ) {
                 setNotFound(true);
                 return;
@@ -56,7 +61,8 @@ export const useWeather = () => {
             const lat = data[0].lat;
             const lon = data[0].lon;
 
-            const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`;
+            // obteniendo la información del clima con la latitud y longitud de la ciudad
+            const weatherURL = `${VITE_WEATHER_URL}?lat=${lat}&lon=${lon}&appid=${VITE_WEATHER_API_KEY}`;
             const { data: weatherData } = await axios.get(weatherURL);
 
             const result = parse(WeatherSchema, weatherData);
