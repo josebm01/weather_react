@@ -24,4 +24,15 @@
   text-transform: uppercase;
   padding: 1.2rem;
   border-radius: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.submit:hover {
+  opacity: 0.85;
+}
+
+.form select option {
+  color: #000;
+  background-color: #fff;
 }

@@ -14,15 +14,16 @@ export const Form = ({ fetchWeather }: FormProps) => {
     const [alert, setAlert] = useState('');
 
     const handleChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;        
+        const { name, value } = e.target;
         setSearch({...search, [name]: value});
+        setAlert('');
     }
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if( Object.values(search).includes('')) {
-            setAlert('Todos los campos son obligatorios');
+            setAlert('All fields are required');
             return;
         }
 
@@ -38,26 +39,26 @@ export const Form = ({ fetchWeather }: FormProps) => {
             { alert && <Alert>{alert}</Alert> }
 
             <div className={styles.field}>
-                <label htmlFor="city">Ciudad:</label>
-                <input 
-                    type="text" 
-                    id="city" 
+                <label htmlFor="city">City:</label>
+                <input
+                    type="text"
+                    id="city"
                     name="city"
-                    placeholder="Ciudad"
+                    placeholder="City"
                     value={search.city}
                     onChange={handleChange}
                 />
             </div>
 
             <div className={styles.field}>
-                <label htmlFor="country">País:</label>
+                <label htmlFor="country">Country:</label>
                 <select 
                     id="country" 
                     name="country" 
                     value={search.country}
                     onChange={handleChange}
                 >
-                    <option value="">-- Selecciona un país --</option>
+                    <option value="">-- Select a country --</option>
                     {countries.map((country) => (
                         <option 
                             key={country.code} 
@@ -69,7 +70,7 @@ export const Form = ({ fetchWeather }: FormProps) => {
                 </select>
             </div>
 
-            <input className={styles.submit} type="submit" value="Buscar clima" />
+            <input className={styles.submit} type="submit" value="Search weather" />
 
         </form>
   )
