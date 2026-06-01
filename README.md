@@ -1,75 +1,63 @@
-# React + TypeScript + Vite
+# Weather Search App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A weather search application built with React, TypeScript and Vite. Enter a city and country to get the current weather conditions including temperature, humidity, and feels-like data.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Search weather by city and country
+- Displays current temperature, min/max, feels like, and humidity
+- Weather icon and description from OpenWeatherMap
+- Form validation with visual alerts
+- Responsive layout (single column on mobile, two-column grid on desktop)
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- [React 19](https://react.dev) — UI library
+- [TypeScript](https://www.typescriptlang.org) — static typing
+- [Vite](https://vite.dev) — build tool and dev server
+- [Axios](https://axios-http.com) — HTTP client
+- [Valibot](https://valibot.dev) — schema validation for API responses
 
-Note: This will impact Vite dev & build performances.
+## API
 
-## Expanding the ESLint configuration
+Weather data is provided by [OpenWeatherMap](https://openweathermap.org).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The app uses two endpoints:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Endpoint | Purpose |
+|---|---|
+| [Geocoding API](https://openweathermap.org/api/geocoding-api) | Resolve city name to latitude/longitude |
+| [Current Weather API](https://openweathermap.org/current) | Fetch weather data by coordinates |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Get an API key
+
+Sign up at [https://openweathermap.org/api](https://openweathermap.org/api) and generate a free API key.
+
+### 2. Configure environment variables
+
+Create a `.env` file at the project root:
+
+```env
+VITE_WEATHER_API_KEY=your_api_key_here
+VITE_GEO_URL=https://api.openweathermap.org/geo/1.0/direct?q=
+VITE_WEATHER_URL=https://api.openweathermap.org/data/2.5/weather
+VITE_OPEN_WEATHER_URL=https://openweathermap.org
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 3. Install dependencies and run
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+## Available Scripts
+
+| Script | Description |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Type-check and build for production |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |
